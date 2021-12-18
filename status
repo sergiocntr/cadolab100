@@ -1,0 +1,18 @@
+{
+    "nome": "RELE PASSO PASSO WEB",
+    "prog": "CADOLAB82",
+    "vers": 25,
+    "ssid": "Tenda_Su",
+    "rssi": -20,
+    "rssiPer": 100,
+    "puls": [
+      0,
+      1,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false
+    ]
+  }
