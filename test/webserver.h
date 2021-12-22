@@ -20,7 +20,12 @@ void Comanda_Uscita(uint8_t Numero)
   
 }
 void faipagina(){
-        
+        int rssi = WiFi.RSSI();
+        String rssiPer;
+        if (rssi<-30&&rssi>-66) rssiPer = "100&#37;";
+        else if (rssi<-67&&rssi>-69) rssiPer = "90&#37;"; 
+        else if (rssi<-70&&rssi>-79) rssiPer = "30&#37;";
+        else if (rssi<-80&&rssi>-90) rssiPer = "10&#37;";
         p = (String)intestazione;
         for ( int q = 1; q < 9; q++ )
           {
@@ -36,7 +41,8 @@ void faipagina(){
             p+= myStringsOn[q-1];
             p+= "</button>";
           }        
-          p += (String)finePagina;
+          //p += (String)finePagina;
+          p += (String)nom + String(NomeProg)+ String(prog) + String(Progetto) + String(vers) + String(Versione) + String(ss) + String(ssid) + String(rs) + String(rssi) + String(rsper) + rssiPer + String(fineTabella);
           p += (String)script;
 }
 void Pubblica_Web() 
@@ -71,13 +77,15 @@ void Pubblica_Web()
         //faiJson();
         DynamicJsonDocument doc(384);
         int rssi = WiFi.RSSI();
-        if (rssi<-30&&rssi>-66) doc["rssiPer"] = "100%";
-        else if (rssi<-67&&rssi>-69) doc["rssiPer"] = "90%"; 
-        else if (rssi<-70&&rssi>-79) doc["rssiPer"] = "30%";
-        else if (rssi<-80&&rssi>-90) doc["rssiPer"] = "10%";
-        doc["nome"] = NomeProg;
-        doc["prog"] = Progetto;
-        doc["vers"] = Versione;
+        
+        if (rssi>-67) doc["rssiPer"] = "100&#37;";
+        else if (rssi<=-67 &&rssi>-70) doc["rssiPer"] = "90&#37;"; 
+        else if (rssi<=-70 &&rssi>-75) doc["rssiPer"] = "60&#37;"; 
+        else if (rssi<=-75 &&rssi>-80) doc["rssiPer"] = "30&#37;";
+        else if (rssi<=-80) doc["rssiPer"] = "10&#37;";
+        //doc["nome"] = NomeProg;
+        //doc["prog"] = Progetto;
+        //doc["vers"] = Versione;
         doc["ssid"] = ssid;
         doc["rssi"] = rssi;
         JsonArray puls = doc.createNestedArray("puls");
