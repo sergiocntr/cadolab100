@@ -31,45 +31,25 @@ String normalize(uint8_t digit){
 void startTime(){
   tempo=millis();
 }
+void avvioda(){
+  TempoTrascorso = String(giorni) + "d:" + normalize(ore) + "h:" + normalize(minuto) + "m";
+}
 void tempoTrascorso(){
   if((millis()- tempo) >1000)
   {
     tempo=millis();
     sec++;
     
-    if (sec>59) { sec=0; minuto++; }
+    if (sec>59) { sec=0; minuto++; avvioda();
+      #ifdef DEBUGMIO
+      Serial.println("Avviato da " + TempoTrascorso);
+      #endif
+      }
     if (minuto>59) { minuto=0; ore++; }
     if (ore>23) { ore=0; giorni++;}
-    
   }
 }
-void faipagina(){
-        // int rssi = WiFi.RSSI();
-        // String rssiPer;
-        // if (rssi<-30&&rssi>-66) rssiPer = "100&#37;";
-        // else if (rssi<-67&&rssi>-69) rssiPer = "90&#37;"; 
-        // else if (rssi<-70&&rssi>-79) rssiPer = "30&#37;";
-        // else if (rssi<-80&&rssi>-90) rssiPer = "10&#37;";
-        // p = (String)intestazione;
-        // for ( int q = 1; q < 9; q++ )
-        //   {
-            
-        //     if (uscita[q]==1)            
-        //       { 
-        //         p+= "<button id=\"button" + String(q) + "menu\" href=\"#\" class=\"button button3\" type=\"button\" onclick= \"window.location.href='"; 
-        //       }
-        //     else
-        //       { p+= "<button id=\"button" + String(q) + "menu\" href=\"#\" class=\"button button4\" type=\"button\" onclick= \"window.location.href='"; }
-        //     p+= relcmd.charAt(q-1);
-        //     p+= "'\" >";
-        //     p+= myStringsOn[q-1];
-        //     p+= "</button>";
-        //   }        
-        //   //p += (String)finePagina;
-        //   p += (String)nom + String(NomeProg)+ String(prog) + String(Progetto) + String(vers) + String(Versione) + String(ss) + String(ssid) + String(rs) + String(rssi) + String(rsper) + rssiPer + String(fineTabella);
-        //   p += (String)script;
-        p=String(page);
-}
+
 void Pubblica_Web() 
 { 
     WiFiClient client = server.available();
@@ -89,13 +69,19 @@ void Pubblica_Web()
     uint8_t addr_end = req.indexOf(' ', addr_start + 1);
     if (addr_start == -1 || addr_end == -1) 
     {      
-        Serial.print("Richiesta non valida: ");
-        Serial.println(req);
+#ifdef DEBUGMIOSTRONG
+  Serial.print("Richiesta non valida: ");
+  Serial.println(req);
+#endif
+        
         return;
     }
     req = req.substring(addr_start + 1, addr_end);
-    //Serial.print("Request: ");
-    //Serial.println(req);
+#ifdef DEBUGMIOSTRONG
+  Serial.print("Request: ");
+  Serial.println(req);
+#endif
+    
     
     if(req == "/status"){
       //Serial.println("dentro status"); 
@@ -108,9 +94,9 @@ void Pubblica_Web()
         else if (rssi<=-70 &&rssi>-75) doc["rssiPer"] = "60%"; 
         else if (rssi<=-75 &&rssi>-80) doc["rssiPer"] = "30%";
         else if (rssi<=-80) doc["rssiPer"] = "10%";
-        //doc["nome"] = NomeProg;
+        //String avvio = String(giorni) + "d:" + normalize(ore) + "h:" + normalize(minuto) + "m";;
         doc["vers"] = Versione;
-        doc["tempo"] = String(giorni) + "d:" + normalize(ore) + "h:" + normalize(minuto) + "m";
+        doc["tempo"] = TempoTrascorso;
         doc["ssid"] = ssid;
         doc["rssi"] = rssi;
         JsonArray puls = doc.createNestedArray("puls");
@@ -123,6 +109,9 @@ void Pubblica_Web()
         serializeJson(doc, p);  //qui la pagina viene fatta dalla libreria arduinoJson
         client.println("HTTP/1.1 200 OK");
         client.println("Content-type:application/json");
+#ifdef DEBUGMIOSTRONG
+        serializeJsonPretty(doc,Serial);
+#endif
         //client.println();
     }else{
     if (req.endsWith("/q")) Comanda_Uscita(1);
@@ -137,13 +126,16 @@ void Pubblica_Web()
     client.println("HTTP/1.1 200 OK");
     client.println("Content-type:text/html");
     //client.println();
-    faipagina();
+    p=String(page);
     }
     client.println();
     
     client.println(p);
     //client.println();
     client.stop();
-    //Serial.println("Chiuso client");
+#ifdef DEBUGMIOSTRONG
+      Serial.println("Chiuso client");
+#endif
+    //
 }
 #endif

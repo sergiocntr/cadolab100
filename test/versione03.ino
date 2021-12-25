@@ -7,9 +7,12 @@
 #include "webserver.h"
 void setup(void)
 {  
+#ifdef DEBUGMIO
   Serial.begin(9600);
+#endif
   inizializza_wifi();
   startTime();
+  avvioda();
 }
 
 void loop(void)

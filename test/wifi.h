@@ -16,31 +16,52 @@ void inizializza_wifi()
   delay(100);
   if (!WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS))
   {
-    Serial.println("STA Failed to configure");
+    #ifdef DEBUGMIO
+      Serial.println("STA Failed to configure");
+    #endif
+    
   }
   WiFi.begin(ssid, password);
-  Serial.println("");
+    #ifdef DEBUGMIO
+      Serial.println("");
+    #endif
+  
   while (WiFi.status() != WL_CONNECTED)
   {
     delay(500);
-    Serial.print(".");
+#ifdef DEBUGMIO
+  Serial.print(".");
+#endif
+    
   }
+#ifdef DEBUGMIO
   Serial.println("");
   Serial.print("Connected to ");
   Serial.println(ssid);
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
+#endif
+  
   if (!MDNS.begin("esp32"))
   {
+#ifdef DEBUGMIO
     Serial.println("Error setting up MDNS responder!");
+#endif
+    
     while (1)
     {
       delay(1000);
     }
   }
+#ifdef DEBUGMIO
   Serial.println("mDNS responder started");
+#endif
+  
   server.begin();
+#ifdef DEBUGMIO
   Serial.println("TCP server started");
+#endif
+  
 
   MDNS.addService("http", "tcp", 80);
 }
