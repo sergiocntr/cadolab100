@@ -6,11 +6,14 @@
 #include <WiFiClient.h>
 #include "variabili.h"
 #include "impostazioni.h"
-long rssi;
-int status = WL_IDLE_STATUS;
+//long rssi;
+//int status = WL_IDLE_STATUS;
 WiFiServer server(80);
 void inizializza_wifi()
 {
+  WiFi.mode(WIFI_STA);
+  WiFi.disconnect();
+  delay(100);
   if (!WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS))
   {
     Serial.println("STA Failed to configure");

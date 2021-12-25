@@ -8,13 +8,12 @@
 void setup(void)
 {  
   Serial.begin(9600);
-
   inizializza_wifi();
 }
 
 void loop(void)
 {
-  
+
   Pubblica_Web();
   
 }

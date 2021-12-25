@@ -9,11 +9,13 @@ void setup(void)
 {  
   Serial.begin(9600);
   inizializza_wifi();
+  startTime();
 }
 
 void loop(void)
 {
 
   Pubblica_Web();
-  
+  tempoTrascorso();
+  delay(10);
 }
