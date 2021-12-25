@@ -4,6 +4,9 @@
 #pragma once
 #ifndef _impostazioni_h
 #define _impostazioni_h
+#include <debugutils.h>
+#define DEBUGMIO
+//#define DEBUGMIOSTRONG
 const char* ssid = "*****************";
 const char* password = "**********";
 
