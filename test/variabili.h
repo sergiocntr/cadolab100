@@ -5,7 +5,7 @@
 
 const char* Progetto = "CADOLAB100";
 const char* NomeProg = "RELE PASSO PASSO WEB";
-const char* Versione = "ser 01";
+const char* Versione = "ser wsocket 01";
 
 //int conta;
 
@@ -24,6 +24,6 @@ bool uscita[9];
 //int Pubblicazioni = 0;
 
 //int Pagina = 0;
-const String relcmd = "qwertyuio";
+//const String relcmd = "qwertyuio";
 //const String myStringsOn[] =  {"Luce Mansarda", "Luce 2", "Luce 3", "Luce 4", "Luce 5", "Luce 6", "Luce 7", "Luce 8"};
 #endif

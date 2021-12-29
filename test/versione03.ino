@@ -5,20 +5,27 @@
  */
 #include "wifi.h"
 #include "webserver.h"
+#include <webskt.h>
+#include <debugutils.h>
 void setup(void)
 {  
 #ifdef DEBUGMIO
   Serial.begin(9600);
 #endif
-  inizializza_wifi();
+  if(inizializza_wifi()){
+    blinkLed(2);
+  };
   startTime();
+  setupServer();
+  setupWs();
   avvioda();
 }
 
 void loop(void)
 {
 
-  Pubblica_Web();
+  loopServer();
+  loopWS();
   tempoTrascorso();
   delay(10);
 }

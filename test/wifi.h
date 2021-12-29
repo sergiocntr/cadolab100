@@ -3,14 +3,15 @@
 #define _wifi_h
 #include <WiFi.h>
 #include <ESPmDNS.h>
-#include <WiFiClient.h>
+//#include <WiFiClient.h>
 #include "variabili.h"
 #include "impostazioni.h"
 //long rssi;
 //int status = WL_IDLE_STATUS;
-WiFiServer server(80);
-void inizializza_wifi()
+//WiFiServer server(80);
+bool inizializza_wifi()
 {
+  WiFi.setSleep(WIFI_PS_NONE);
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
   delay(100);
@@ -19,15 +20,24 @@ void inizializza_wifi()
     #ifdef DEBUGMIO
       Serial.println("STA Failed to configure");
     #endif
+    return false;
     
   }
   WiFi.begin(ssid, password);
     #ifdef DEBUGMIO
       Serial.println("");
     #endif
-  
+  uint32_t timeoutConn = millis();
   while (WiFi.status() != WL_CONNECTED)
   {
+    if ( (millis()- timeoutConn) >10000 )
+    {
+      #ifdef DEBUGMIO
+      Serial.println("WIFI connection timed out");
+    #endif
+      return false;
+    }
+    
     delay(500);
 #ifdef DEBUGMIO
   Serial.print(".");
@@ -47,22 +57,19 @@ void inizializza_wifi()
 #ifdef DEBUGMIO
     Serial.println("Error setting up MDNS responder!");
 #endif
-    
-    while (1)
-    {
-      delay(1000);
-    }
+    return false;
   }
 #ifdef DEBUGMIO
   Serial.println("mDNS responder started");
 #endif
   
-  server.begin();
+  //server.begin();
 #ifdef DEBUGMIO
   Serial.println("TCP server started");
 #endif
   
 
   MDNS.addService("http", "tcp", 80);
+  return true;
 }
 #endif
