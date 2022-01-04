@@ -12,7 +12,7 @@ bool inizializza_wifi()
   {
     #ifdef DEBUGMIO
       Serial.println("STA Failed to configure");
-      login = 
+      loginSt = CONFIG_NO_FILE;
     #endif
     return false;
     

@@ -10,15 +10,24 @@
   SE SI LOGGA VA ALLA INDEX.HTML
 */
 enum loginStates {
-  CONFIG_NO_FILE, // non c'e il file config
-  CONFIG_ERR_LET, // il file è corrotto
+  EP_READ_FAIL, // lettura eeprom fallita
+  EP_READ_SUCCESS, // il file è corrotto
+  EP_WRITE_FAIL, // lettura eeprom fallita
+  EP_WRITE_SUCCESS, // il file è corrotto
   SSID_NOT_FOUND, // ssid del file config non rilevato
   WIFI_NOT_CONN,  // password wifi sbagliata
   USER_NOT_FOUND, // è stato inserito un user non memorizzato
   WRONG_PASSWORD, // la password dell'user è sbagliata
   LOGIN_OK        //wifi connessa , utente loggato 
 };
-enum loginStates login ;
+
+//struct accesso
+struct loginCredential{
+  char usr[30];
+  char passUsr[30];
+  char ssid[30];
+  char passSsid[30];
+};
 //#define DEBUGMIOSTRONG
 //  QUESTE PASSWORD SONO HARD CODED
 //  E ABILITANO IL LOGIN

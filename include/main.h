@@ -15,9 +15,15 @@
 #include <ESPAsyncWebServer.h>
 #include <WebSocketsServer.h>  ////https://github.com/Links2004/arduinoWebSockets needed for instant communication between client and server through Websockets
 #include <ArduinoJson.h>      // needed for JSON encapsulation (send multiple variables with one string)
-#include <debugutils.h>
+
 #include <impostazioni.h>
+enum loginStates loginSt ;
+loginCredential loginCred;
+#include <debugutils.h>
 #include "wifi.h"
 #include "webserver.h"
 #include <webskt.h>
+#include <eep.h>
+
+
 #endif
