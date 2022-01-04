@@ -2,21 +2,6 @@
 #ifndef _wifi_h
 #define _wifi_h
 #include <main.h>
-// #ifdef ESP32
-// #include <WiFi.h>
-// #include <AsyncTCP.h>
-// #elif defined(ESP8266)
-// #include <ESP8266WiFi.h>
-// #include <ESPAsyncTCP.h>
-// #endif
-// #include <ESPAsyncWebServer.h>
-// //#include <ESPmDNS.h>
-// //#include <WiFiClient.h>
-// #include "variabili.h"
-// #include "impostazioni.h"
-// //long rssi;
-// //int status = WL_IDLE_STATUS;
-// //WiFiServer server(80);
 bool inizializza_wifi()
 {
   WiFi.setSleep(WIFI_PS_NONE);
@@ -27,6 +12,7 @@ bool inizializza_wifi()
   {
     #ifdef DEBUGMIO
       Serial.println("STA Failed to configure");
+      login = 
     #endif
     return false;
     

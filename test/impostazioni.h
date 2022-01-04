@@ -29,8 +29,10 @@ const char* http_password = "admin";
 //  QUI SONO VALORI CHE VENGONO POPOLATI
 //  NELLA LETTURA DEL CONFIG
 //
-char* ssid ;
-char* password ;
+const char* ssid     = "TIM-23836387";
+const char* password= "51vEBuMvmALxNQHVIHQKkn52";
+//char* ssid ;
+//char* password ;
 //
 //  SOTTO QUESTA LINEA NON SI DOVREBBE CAMBIARE NIENTE
 //

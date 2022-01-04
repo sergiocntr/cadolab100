@@ -1,6 +1,6 @@
 /*
   CADOLAB100
-  ESP32 DEV MODULE
+  
   UPDATE SPEED: 230400
  */
 #include <main.h>
@@ -13,6 +13,13 @@ void setup(void)
     blinkLed(2);
   };
   startTime();
+  if(!SPIFFS.begin()){
+    Serial.println("An Error has occurred while mounting LittleFS");
+    return;
+  }else
+  {
+    Serial.println("LittleFS ok ");
+  }
   setupServer();
   setupWs();
   avvioda();
@@ -21,7 +28,6 @@ void setup(void)
 void loop(void)
 {
 
-  loopServer();
   loopWS();
   tempoTrascorso();
   delay(10);
