@@ -1,24 +1,35 @@
 #pragma once
 #ifndef webser_h
 #define webser_h
-#include <Arduino.h>
-#include <WebServer.h>                                // needed to create a simple webserver
-#include <ArduinoJson.h>
-#include "variabili.h"
-#include "html.h"
+#include <main.h>
 
-WebServer server(serverPort);                                 // the server uses port 80 (standard port for websites
+AsyncWebServer server(serverPort);    // the server uses port 80 (standard port for websites
+
+
+void notFound(AsyncWebServerRequest *request) {
+    request->send(404, "text/plain", "Not found");
+}
 void setupServer(){
-  server.on("/", []() {                               // define here wat the webserver needs to do
-    server.send(200, "text\html", page);           //    -> it needs to send out the HTML string "webpage" to the client
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
+    if(!request->authenticate(http_username, http_password))
+    return request->requestAuthentication();
+    request->send(LittleFS, "/index.html", "text/html");
+  });
+  server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(LittleFS, "/style.css","text/css");
+  });
+  server.on("/main.js", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(LittleFS, "/main.js","application/json");
   });
   
-  server.begin();                                     // start server
+  server.onNotFound(notFound);
+  
+  server.begin();
 }
 void loopServer() {
-  server.handleClient();                              // Needed for the webserver to handle all clients
+ 
   
+
+
 }
-
-
 #endif

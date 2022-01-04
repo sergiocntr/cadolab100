@@ -1,14 +1,22 @@
 #pragma once
 #ifndef _wifi_h
 #define _wifi_h
-#include <WiFi.h>
-#include <ESPmDNS.h>
-//#include <WiFiClient.h>
-#include "variabili.h"
-#include "impostazioni.h"
-//long rssi;
-//int status = WL_IDLE_STATUS;
-//WiFiServer server(80);
+#include <main.h>
+// #ifdef ESP32
+// #include <WiFi.h>
+// #include <AsyncTCP.h>
+// #elif defined(ESP8266)
+// #include <ESP8266WiFi.h>
+// #include <ESPAsyncTCP.h>
+// #endif
+// #include <ESPAsyncWebServer.h>
+// //#include <ESPmDNS.h>
+// //#include <WiFiClient.h>
+// #include "variabili.h"
+// #include "impostazioni.h"
+// //long rssi;
+// //int status = WL_IDLE_STATUS;
+// //WiFiServer server(80);
 bool inizializza_wifi()
 {
   WiFi.setSleep(WIFI_PS_NONE);
@@ -52,16 +60,16 @@ bool inizializza_wifi()
   Serial.println(WiFi.localIP());
 #endif
   
-  if (!MDNS.begin("esp32"))
-  {
-#ifdef DEBUGMIO
-    Serial.println("Error setting up MDNS responder!");
-#endif
-    return false;
-  }
-#ifdef DEBUGMIO
-  Serial.println("mDNS responder started");
-#endif
+//   if (!MDNS.begin("esp32"))
+//   {
+// #ifdef DEBUGMIO
+//     Serial.println("Error setting up MDNS responder!");
+// #endif
+//     return false;
+//   }
+// #ifdef DEBUGMIO
+//   Serial.println("mDNS responder started");
+// #endif
   
   //server.begin();
 #ifdef DEBUGMIO
@@ -69,7 +77,7 @@ bool inizializza_wifi()
 #endif
   
 
-  MDNS.addService("http", "tcp", 80);
+  //MDNS.addService("http", "tcp", 80);
   return true;
 }
 #endif

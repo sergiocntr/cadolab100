@@ -1,13 +1,7 @@
 #pragma once
 #ifndef webskt_h
 #define webskt_h
-#include <debugutils.h>
-#include <WebServer.h>                                // needed to create a simple webserver
-//https://github.com/Links2004/arduinoWebSockets
-#include <WebSocketsServer.h>  // needed for instant communication between client and server through Websockets
-#include <ArduinoJson.h>      // needed for JSON encapsulation (send multiple variables with one string)
-#include "variabili.h"
-#include "html.h"
+#include <main.h>
 WebSocketsServer webSocket = WebSocketsServer(wbsktPort);
 
 uint8_t sec=0;

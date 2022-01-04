@@ -3,10 +3,7 @@
   ESP32 DEV MODULE
   UPDATE SPEED: 230400
  */
-#include "wifi.h"
-#include "webserver.h"
-#include <webskt.h>
-#include <debugutils.h>
+#include <main.h>
 void setup(void)
 {  
 #ifdef DEBUGMIO
