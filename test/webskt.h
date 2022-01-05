@@ -91,7 +91,7 @@ void jsonConn(String& s) {
     doc_tx["type"] = "conn_esp";
     doc_tx["vers"] = Versione;
     doc_tx["tempo"] = "appena avviato";
-    doc_tx["ssid"] = ssid;
+    doc_tx["ssid"] = loginCred.ssid;
     JsonArray puls = doc_tx.createNestedArray("puls");
     for (size_t i = 1; i < 9; i++)
     {

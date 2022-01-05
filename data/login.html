@@ -1,38 +1,36 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>CADOLAB LOGIN</title>
-  <meta name="description" content="CADOLAB LOGIN" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="viewport" content="width=device-width, user-scalable=no">
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <script src="index.js"></script>
+  <title>LOGIN</title>
+  <meta name='description' content='LOGIN' />
+  <meta name='apple-mobile-web-app-capable' content='yes'>
+  <meta name='apple-mobile-web-app-status-bar-style' content='default'>
+  <meta name='viewport' content='width=device-width, user-scalable=no'>
+  <link rel='stylesheet' type='text/css' href='style.css'>
 </head>
 <body>
   <div>
-   <h1 class='inset'>CADOLAB LOGIN</h1>
+   <h1 class='inset'>LOGIN</h1>
     <form method='POST' action='/accesso'>
         <div class='parameters'>
           <div class='display'>
-            <label class="inset" for='us'>USER</label>
-            <input type='text' id='us'>
+            <label class='inset' for='us'>USER</label>
+            <input type='text' id='us' name='us'>
           </div>
           <div class='display'>
-            <label class="inset" for='pa'>PASSWORD</label>
-            <input type='password' id='pa'>
+            <label class='inset' for='pa'>PASSWORD</label>
+            <input type='password' id='pa' name='pa'>
           </div>
           <div class='display'>
-            <label class="inset" for='ssid'>SSID</label>
-            <input type='text' id='ssid'>
+            <label class='inset' for='ssid'>SSID</label>
+            <input type='text' id='ssid' name='ssid'>
           </div>
           <div class='display'>
-            <label class="inset" for='wifipa'>SSID PASSWORD</label>
-            <input type='password' id='wifipa'>
+            <label class='inset' for='wifipa'>SSID PASSWORD</label>
+            <input type='password' id='wifipa' name='wifipa'>
           </div>
         </div>
-        <div class="login">
+        <div class='login'>
           <button  type='submit' name='login'>ACCEDI</button>
         </div>
       </form>

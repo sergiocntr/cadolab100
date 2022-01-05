@@ -38,27 +38,20 @@ void saveCredentials() {
     Serial.print("User Password: ");
     Serial.println(loginCred.passUsr);
     Serial.println("VERIFICA: ");
-    loginCred.passSsid="";
-    loginCred.passUsr="";
-    loginCred.ssid="";
-    loginCred.usr="";
     EEPROM.begin(512);
     EEPROM.get(0, loginCred);
     EEPROM.end() ;
     delay(10);
-   
     Serial.print("STORED SSID: ");
-    Serial.println(miologin.ssid);
+    Serial.println(loginCred.ssid);
     Serial.print("STORED Password: ");
-    Serial.println(miologin.passSsid); 
+    Serial.println(loginCred.passSsid); 
     Serial.print("STORED USER: ");
-    Serial.println(miologin.usr);
+    Serial.println(loginCred.usr);
     Serial.print("STORED User Password: ");
-    Serial.println(miologin.passUsr); 
+    Serial.println(loginCred.passUsr); 
     Serial.println("Done");
     delay(10);
   #endif
- 
 }
-
 #endif

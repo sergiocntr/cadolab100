@@ -130,6 +130,7 @@ button:active {
   grid-gap: .25rem;
 }
 .buttons {
+  display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1em;
 }
