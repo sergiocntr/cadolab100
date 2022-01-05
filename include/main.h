@@ -17,8 +17,7 @@
 #include <ArduinoJson.h>      // needed for JSON encapsulation (send multiple variables with one string)
 #include <ESP_DoubleResetDetector.h>            //https://github.com/khoih-prog/ESP_DoubleResetDetector
 #include <impostazioni.h>
-enum loginStates loginSt ;
-loginCredential loginCred;
+
 #include <debugutils.h>
 #include "wifi.h"
 #include "webserver.h"

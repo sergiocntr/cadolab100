@@ -11,7 +11,8 @@ void notFound(AsyncWebServerRequest *request) {
 #pragma region STA
 void setupServer(){
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    // request->send(SPIFFS, "/index.html", "text/html");
+    if(!request->authenticate(loginCred.usr, loginCred.passUsr))
+      return request->requestAuthentication();
     request->send(SPIFFS, "/index.html", "text/html");
     // request->send(200, "text/plain", "Hello, world");
   });

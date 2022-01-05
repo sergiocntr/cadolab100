@@ -4,19 +4,7 @@
   UPDATE SPEED: 230400
  */
 #include <main.h>
-#ifdef ESP32
-  #define USE_SPIFFS            true
-  #define ESP_DRD_USE_EEPROM    true
-  #define DRD_ADDRESS           1024
-#else  
-  // RTC Memory Address for the DoubleResetDetector to use
-  #define DRD_ADDRESS 0
-#endif
 
-// Number of seconds after reset during which a 
-// subseqent reset will be considered a double reset.
-#define DRD_TIMEOUT 5
-DoubleResetDetector drd(DRD_TIMEOUT, DRD_ADDRESS);
 
 
 

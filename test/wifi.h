@@ -57,6 +57,7 @@ bool inizializza_wifi()
   return true;
 }
 #pragma endregion STA
+//***********-----------------**************----------------***************
 #pragma region AP
 void setAPMode(){
   WiFi.mode(WIFI_AP);
