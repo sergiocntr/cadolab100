@@ -2,7 +2,8 @@
 #ifndef _wifi_h
 #define _wifi_h
 #include <main.h>
-//
+const byte DNS_PORT = 53;
+DNSServer dnsServer;
 #pragma region STA
 bool inizializza_wifi()
 {
@@ -66,9 +67,9 @@ void setAPMode(){
 WiFi.softAP(ssidAP, passwordAP);
 
   IPAddress IP = WiFi.softAPIP();
-  #ifdef DEBUGMIO
-    DEBUG_PRINT("AP IP address: ");Serial.println(IP);
-  #endif
+  
+  DEBUG_PRINT("AP IP address: " +IP.toString() );
+ dnsServer.start(DNS_PORT, "*", IP);
 }
 #pragma endregion AP
 #endif

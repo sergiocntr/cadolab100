@@ -1,7 +1,9 @@
 #pragma once
 #ifndef _main_h
 #define _main_h
+#define DEBUGMIO
 #include <FS.h>
+#include <DNSServer.h>
 #ifdef ESP32
   #include <WiFi.h>
   #include <AsyncTCP.h>
@@ -23,6 +25,4 @@
 #include "webserver.h"
 #include <webskt.h>
 #include <eep.h>
-
-
 #endif

@@ -1,14 +1,13 @@
 #pragma once
 #ifndef _impostazioni_h
 #define _impostazioni_h
-#define DEBUGMIO
 const char* Progetto = "CADOLAB100";
 const char* NomeProg = "RELE PASSO PASSO WEB";
 const char* Versione = "ser wsocket 01";
 //  QUESTE PASSWORD SONO HARD CODED
 //  E ABILITANO IL LOGIN
 //  
-const char* ssidAP     = "ESP8266-Access-Point";
+const char* ssidAP     = "ESP8266-CL100";
 const char* passwordAP = "123456789";
 
 /* PRIMA  LEGGE EEPROM

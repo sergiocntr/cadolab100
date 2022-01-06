@@ -14,9 +14,8 @@ void setupServer(){
     if(!request->authenticate(loginCred.usr, loginCred.passUsr))
       return request->requestAuthentication();
     request->send(SPIFFS, "/index.html", "text/html");
-    // request->send(200, "text/plain", "Hello, world");
+    
   });
-  
   // Route to load style.css file
   server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/style.css", "text/css");
@@ -25,6 +24,15 @@ void setupServer(){
   server.on("/index.js", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/index.js", "text/javascript");
   });
+  // Route to load font file
+  server.on("/D7MR.woff2", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/D7MR.woff2", "font/woff2");
+  });
+  // Route to load buttons label
+  server.on("/pulsName.json", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/pulsName.json", "application/json");
+  });
+  
   server.onNotFound(notFound);
   server.begin();
 
@@ -62,7 +70,7 @@ void setupAPServer(){
       saveCredentials();
       //MOSTRO A SCHERMO L'INVITO A RIAVVIARE IL NODE PER CONNETTERSI ALLA RETE WIFI APPENA REGISTRATA
       request->send_P(200, "text/html", "<h2>OK! RIAVVIA </h2>");
-      ESP.restart();
+      //ESP.restart();
     } else {
       //SE NON HA I PARAMETRI TORNA ALLA FORM DI INSERIMENTO
       request->send(SPIFFS, "/login.html", "text/html");
@@ -73,4 +81,3 @@ void setupAPServer(){
 }
 #pragma endregion AP
 #endif
-

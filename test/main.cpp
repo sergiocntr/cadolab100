@@ -1,16 +1,8 @@
-/*
-  CADOLAB100
-  
-  UPDATE SPEED: 230400
- */
+
 #include <main.h>
-
-
-
-
 void APRoutines(){
   //BUILT IN LED ACCESO -> MODALITA' AP
-  Serial.println(loginSt);
+  DEBUG_PRINT(loginSt);
   delay(2000);
     digitalWrite(LED_BUILTIN, LOW);
     loginSt = WIFI_AP_MODE;
@@ -26,20 +18,22 @@ void setup(void)
   digitalWrite(LED_BUILTIN, HIGH);
 #ifdef DEBUGMIO
   Serial.begin(9600);
+  DEBUG_PRINT("");
+  delay(20);
 #endif
 bool check =true;  
   if(!SPIFFS.begin()){
-    Serial.println("An Error has occurred while mounting LittleFS");
+    DEBUG_PRINT("-> An Error has occurred while mounting LittleFS");
     loginSt = FS_FAIL_TO_LOAD;
     check=false;
   }
 if(check)
 {
-  Serial.println("LittleFS ok ");
+  DEBUG_PRINT("1 LittleFS ok ");
   loginSt = FS_LOAD_OK;
   if (drd.detectDoubleReset()) 
   {
-    Serial.println("Double Reset Detected");
+    DEBUG_PRINT("Double Reset Detected");
     loginSt = DDR_DETECTED;
     blinkLed(loginSt);
     delay(1000);
@@ -62,19 +56,20 @@ if(check)
     check=false;
   }
 }
-Serial.println("Prima del while : " + String(check));
+DEBUG_PRINT("Prima del while : " + String(check));
 if(check)  
 {
   setupServer();
   setupWs();
   avvioda();
-  
+  delay(10);
   blinkLed(loginSt);
   while(1){
-  loopWS();
-  tempoTrascorso();
-  delay(10);
-}
+    loopWS();
+    delay(5);
+    tempoTrascorso();
+    delay(10);
+  }
   
   }
 }

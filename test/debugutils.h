@@ -2,7 +2,7 @@
 #define DEBUGUTILS_H
 #pragma once
 #include <Arduino.h>
-#define DEBUGMIO
+#include <main.h>
   #if defined DEBUGMIO
   //#define __FILENAME__ (__builtin_strrchr(__FILE__, '/') ? __builtin_strrchr(__FILE__, '/') + 1 : __FILE__)
   #define DEBUG_PRINT(str)    \
