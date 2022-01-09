@@ -1,9 +1,9 @@
 #pragma once
 #ifndef _impostazioni_h
 #define _impostazioni_h
-const char* Progetto = "CADOLAB100";
+const char* Progetto = "cadolab100";
 const char* NomeProg = "RELE PASSO PASSO WEB";
-const char* Versione = "ser wsocket 01";
+const char* Versione = "1.0.1";
 //  QUESTE PASSWORD SONO HARD CODED
 //  E ABILITANO IL LOGIN
 //  
@@ -43,6 +43,7 @@ struct loginCredential{
   char passUsr[30];
   char ssid[30];
   char passSsid[30];
+  char IPUsr[30];
 };
 
 //  **************************************************
@@ -64,12 +65,7 @@ DoubleResetDetector drd(DRD_TIMEOUT, DRD_ADDRESS);
 bool uscita[9];
 enum loginStates loginSt ;
 loginCredential loginCred;
-
 const uint8_t serverPort = 80;
 const uint8_t wbsktPort = 75;
-IPAddress local_IP(192, 168, 1, 74);
-IPAddress gateway(192, 168, 1, 1);
-IPAddress subnet(255, 255, 255, 0);
-IPAddress primaryDNS(8, 8, 8, 8);
-IPAddress secondaryDNS(8, 8, 4, 4);
+
 #endif

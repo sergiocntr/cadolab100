@@ -9,9 +9,9 @@
   <link rel='stylesheet' type='text/css' href='style.css'>
 </head>
 <body>
-  <div>
+  <div style="max-width: 80%;align-items: center;">
    <h1 class='inset'>LOGIN</h1>
-    <form method='POST' action='/accesso'>
+    <form method='POST' action='/accesso' >
         <div class='parameters'>
           <div class='display'>
             <label class='inset' for='us'>USER</label>
@@ -21,6 +21,8 @@
             <label class='inset' for='pa'>PASSWORD</label>
             <input type='password' id='pa' name='pa'>
           </div>
+        </div>
+        <div class='buttons'>
           <div class='display'>
             <label class='inset' for='ssid'>SSID</label>
             <input type='text' id='ssid' name='ssid'>
@@ -28,6 +30,10 @@
           <div class='display'>
             <label class='inset' for='wifipa'>SSID PASSWORD</label>
             <input type='password' id='wifipa' name='wifipa'>
+          </div>
+          <div class='display'>
+            <label class='inset' for='ip'>IP</label>
+            <input type='text' id='ip' name='ip' value="192.168.1.74">
           </div>
         </div>
         <div class='login'>

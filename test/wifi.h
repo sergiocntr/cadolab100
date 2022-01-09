@@ -10,21 +10,30 @@ bool inizializza_wifi()
   WiFi.setSleep(WIFI_PS_NONE);
   WiFi.mode(WIFI_STA);
   WiFi.disconnect();
+  WiFi.hostname(Progetto);      // DHCP Hostname (useful for finding device for static lease)
   //
   //RECUPERO DATI CONNESSIONE
   //
-  
-  delay(100);
-  if (!WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS))
+  String ip = String(loginCred.IPUsr );
+  if(ip != "")
   {
-    #ifdef DEBUGMIO
-      Serial.println("STA Failed to configure");
-      
-    #endif
-    loginSt = WIFI_CONF_ERR;
-    return false;
-    
+    IPAddress gateway(192, 168, 1, 1);
+    IPAddress subnet(255, 255, 255, 0);
+    IPAddress primaryDNS(8, 8, 8, 8);
+    IPAddress secondaryDNS(8, 8, 4, 4);
+    IPAddress local_IP;
+    bool x= local_IP.fromString(ip);
+    if (! WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS))
+    {
+      #ifdef DEBUGMIO
+        Serial.println("STA Failed to configure");
+      #endif
+      loginSt = WIFI_CONF_ERR;
+    }
   }
+
+delay(100);
+  
   WiFi.begin(loginCred.ssid, loginCred.passSsid);
     #ifdef DEBUGMIO
       Serial.println("");

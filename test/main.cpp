@@ -69,6 +69,7 @@ if(check)
     delay(5);
     tempoTrascorso();
     delay(10);
+    MDNS.update();
   }
   
   }
