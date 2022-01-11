@@ -6,7 +6,7 @@
 void loadCredentials() {
   EEPROM.begin(512);
   EEPROM.get(0, loginCred);
-  if(EEPROM.end()) loginSt= EP_READ_SUCCESS; else loginSt= EP_READ_FAIL;
+  EEPROM.end();// loginSt= EP_READ_SUCCESS; else loginSt= EP_READ_FAIL;
   delay(10);
    #ifdef DEBUGMIO
     Serial.print("RECOVERED SSID: ");

@@ -69,7 +69,9 @@ if(check)
     delay(5);
     tempoTrascorso();
     delay(10);
+    #ifdef ESP8266
     MDNS.update();
+    #endif
   }
   
   }

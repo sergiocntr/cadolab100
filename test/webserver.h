@@ -3,7 +3,7 @@
 #define webser_h
 #include <main.h>
 #include <eep.h>
-#include <ESP8266mDNS.h>
+
 AsyncWebServer server(serverPort);    
 void notFound(AsyncWebServerRequest *request) {
     request->send(404, "text/plain", "Not found");
