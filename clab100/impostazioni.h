@@ -3,7 +3,7 @@
 #define _impostazioni_h
 const char* Progetto = "cadolab100";
 const char* NomeProg = "RELE PASSO PASSO WEB";
-const char* Versione = "1.0.1";
+const char* Versione = "1.0.2";
 //  QUESTE PASSWORD SONO HARD CODED
 //  E ABILITANO IL LOGIN
 //  
