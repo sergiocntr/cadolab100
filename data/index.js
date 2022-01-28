@@ -15,7 +15,7 @@ function onLoad(event) {
   initButtons();
   updateButton();
   //updateStatus();
-  Socket = new WebSocket('ws://' + window.location.hostname + ':75/');
+  Socket = new WebSocket('ws://' + window.location.hostname + '/ws');
   Socket.onmessage = function (event) {
     processCommand(event);
   };

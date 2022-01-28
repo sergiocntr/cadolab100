@@ -3,6 +3,7 @@
 #define webser_h
 #include <main.h>
 #include <eep.h>
+#include <webskt.h>
 
 AsyncWebServer server(serverPort);    
 void notFound(AsyncWebServerRequest *request) {
@@ -33,10 +34,22 @@ void setupServer(){
   server.on("/pulsName.json", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/pulsName.json", "application/json");
   });
+  //Favicon
+  server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest *request){
+    
+      request->send(SPIFFS, "/favicon.ico" ,"image/x-icon");
+    
+  });
+
+  server.on("/freeheap", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(200, "text/plain", (String)ESP.getFreeHeap());
+    });
+    
   server.onNotFound(notFound);
   if(MDNS.begin(Progetto)){ DEBUG_PRINT("mDNS responder started");}
+
   
-  
+  server.addHandler(&webSocket);
   // Start TCP (HTTP) server
   server.begin();
   DEBUG_PRINT("TCP server started");

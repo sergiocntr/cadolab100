@@ -65,8 +65,8 @@ if(check)
   delay(10);
   blinkLed(loginSt);
   while(1){
-    loopWS();
-    delay(5);
+    //loopWS();
+    //delay(5);
     tempoTrascorso();
     delay(10);
     #ifdef ESP8266

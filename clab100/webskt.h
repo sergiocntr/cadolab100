@@ -2,7 +2,10 @@
 #ifndef webskt_h
 #define webskt_h
 #include <main.h>
-WebSocketsServer webSocket = WebSocketsServer(wbsktPort);
+
+//WebSocketsServer webSocket = WebSocketsServer(wbsktPort);
+AsyncWebSocket webSocket("/ws");
+AsyncWebSocketClient* wsClient;
 
 uint8_t sec=0;
 uint8_t minuto=0;
@@ -23,7 +26,7 @@ void Comanda_Uscita(uint8_t Numero)
   doc_tx["value"] = uscita[Numero]; //stato
   String jsonString = "";
   serializeJson(doc_tx, jsonString);                // convert JSON object to string
-  webSocket.broadcastTXT(jsonString);               // send JSON string to all clients
+  webSocket.textAll(jsonString);               // send JSON string to all clients
 }
 
 void ResettaUscite()
@@ -36,7 +39,7 @@ void ResettaUscite()
   doc_tx["type"] = "resetP_esp";
   String jsonString = "";
   serializeJson(doc_tx, jsonString);                // convert JSON object to string
-  webSocket.broadcastTXT(jsonString);               // send JSON string to all clients
+  webSocket.textAll(jsonString);               // send JSON string to all clients
   #ifdef DEBUGMIO
     DEBUG_PRINT("Inviato WS" + jsonString);
   #endif
@@ -64,7 +67,7 @@ void avvioda(){
   doc_tx["tempo"] = TempoTrascorso;
   String jsonString = "";
   serializeJson(doc_tx, jsonString);                // convert JSON object to string
-  webSocket.broadcastTXT(jsonString);               // send JSON string to all clients
+  webSocket.textAll(jsonString);               // send JSON string to all clients
   #ifdef DEBUGMIO
     DEBUG_PRINT("Inviato WS " + jsonString);
   #endif
@@ -99,35 +102,37 @@ void jsonConn(String& s) {
     }
     serializeJson(doc_tx, s); // convert JSON object to string
 }
-void webSocketEvent(byte num, WStype_t type, uint8_t * payload, size_t length) {      // the parameters of this callback function are always the same -> num: id of the client who send the event, type: type of message, payload: actual data sent and length: length of payload
+//void webSocketEvent(byte num, WStype_t type, uint8_t * payload, size_t length) 
+void webSocketEvent(AsyncWebSocket * server, AsyncWebSocketClient * client, AwsEventType type, void * arg, uint8_t *data, size_t len)
+{      // the parameters of this callback function are always the same -> num: id of the client who send the event, type: type of message, payload: actual data sent and length: length of payload
   switch (type) {                                     // switch on the type of information sent
-    case WStype_DISCONNECTED:                         // if a client is disconnected, then type == WStype_DISCONNECTED
+    case WS_EVT_DISCONNECT:                         // if a client is disconnected, then type == WStype_DISCONNECTED
     {
       #ifdef DEBUGMIO
-        DEBUG_PRINT("Client " + String(num) + " disconnected");
+        DEBUG_PRINT("Client " + String(client->id()) + " disconnected");
       #endif
       delay(10);
       break;
     } 
-    case WStype_CONNECTED:
+    case WS_EVT_CONNECT:
     {                            // if a client is connected, then type == WStype_CONNECTED
       #ifdef DEBUGMIO
-      DEBUG_PRINT("Client " + String(num) + " connected");
+      DEBUG_PRINT("Client " + String(client->id()) + " connected");
       #endif
       
       // in caso di connessione si mandano i vari campi al clien che si è connesso
       String str="";
       jsonConn(str);
-      webSocket.sendTXT(num, str); //nuova connessione,mando i campi al nuovo client connesso
+      webSocket.text(client->id(), str); //nuova connessione,mando i campi al nuovo client connesso
       #ifdef DEBUGMIO
-        DEBUG_PRINT("Inviato WS " + str + " al client " + String(num));
+        DEBUG_PRINT("Inviato WS " + str + " al client " + String(client->id()));
       #endif
       break;
     }
-    case WStype_TEXT:
+    case WS_EVT_DATA:
     {                                 // if a client has sent data, then type == WStype_TEXT
       // try to decipher the JSON string received
-      DeserializationError error = deserializeJson(doc_rx, payload);
+      DeserializationError error = deserializeJson(doc_rx, data);
       if (error) {
         Serial.print(F("deserializeJson() failed: "));
         Serial.println(error.f_str());
@@ -155,24 +160,24 @@ void webSocketEvent(byte num, WStype_t type, uint8_t * payload, size_t length) {
       
       break;
     }
-    case WStype_BIN:
-    case WStype_ERROR:
-    case WStype_PING:
-    case WStype_PONG:
-		case WStype_FRAGMENT_TEXT_START:
-		case WStype_FRAGMENT_BIN_START:
-		case WStype_FRAGMENT:
-		case WStype_FRAGMENT_FIN:
+    //case WStype_BIN:
+    case WS_EVT_ERROR:
+    //case WStype_PING:
+    case WS_EVT_PONG:
+		//case WStype_FRAGMENT_TEXT_START:
+	//	case WStype_FRAGMENT_BIN_START:
+	//	case WStype_FRAGMENT:
+	//	case WStype_FRAGMENT_FIN:
 		break;
   }
 }
 
 
 void setupWs(){
-  webSocket.begin();
+ // webSocket.begin();
   webSocket.onEvent(webSocketEvent);
 }
 void loopWS(){
-  webSocket.loop();    // Update function for the webSockets 
+  //webSocket.loop();    // Update function for the webSockets 
 }
 #endif
